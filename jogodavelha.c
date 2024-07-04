@@ -19,7 +19,7 @@ int main(){
 
 setlocale(LC_ALL, "Portuguese");
 
-int matriz[1][1][1] , jogador1 , jogador2;
+int matriz[1][1] , jogador1 , jogador2;
 char op;
 
 putchar('\t'); putchar('\t'); putchar('\t'); putchar('\t');
