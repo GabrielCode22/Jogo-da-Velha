@@ -4,7 +4,7 @@
 
 void matriz() {
 		int i;
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < 3; i++) {
 		putchar('\t');
 		printf("  |		|");
 		printf("\n");
@@ -13,13 +13,22 @@ void matriz() {
 
 void multijogador(){
 	matriz();
+	int coiso;
+	printf("Digite onde quer colocar o coiso:\n1 - 9\n");
+	scanf("%d", &coiso);
+	
+	if (coiso == 1) {
+		system("cls");
+		printf("   X");
+		matriz();
+	}
 }
 
 int main(){
 
 setlocale(LC_ALL, "Portuguese");
 
-int matriz[1][1] , jogador1 , jogador2;
+int matriz[1][1][1] , jogador1 , jogador2;
 char op;
 
 putchar('\t'); putchar('\t'); putchar('\t'); putchar('\t');
