@@ -2,6 +2,12 @@
 #include <locale.h>
 #include <stdlib.h>
 
+void espacar() {
+    for (int i = 0; i < 4; i++) {
+        putchar('\t');
+    }
+}
+
 void matriz() {
 		int i;
 	for (i = 0; i < 3; i++) {
@@ -31,16 +37,17 @@ setlocale(LC_ALL, "Portuguese");
 int matriz[1][1][1] , jogador1 , jogador2;
 char op;
 
-putchar('\t'); putchar('\t'); putchar('\t'); putchar('\t');
+espacar();
 printf("Bem vindo ao Jogo da Velha !\n\n");
-putchar('\t'); putchar('\t'); putchar('\t'); putchar('\t');
+espacar();
 printf("  Selecionar modo de jogo:\n\n\n\n");
-putchar('\t'); putchar('\t'); putchar('\t'); putchar('\t');
+espacar();
 printf("1 - Multijogador\n\n");
-putchar('\t'); putchar('\t'); putchar('\t'); putchar('\t');
+espacar();
 printf("2 - Jogar contra o computador\n\n");
-putchar('\t'); putchar('\t'); putchar('\t'); putchar('\t');
+espacar();
 printf("3 - Ver Créditos\n\n");
+espacar();
 scanf("%c", &op);
 
 switch(op)
@@ -54,7 +61,8 @@ case '2':
 	break;
 case '3':
 	system("cls");
-	printf(" Luiz Fernando\n Joshuan Estevão \n Gabriel Chagas");
+    espacar();
+	printf(" Luiz Fernando | Joshuan Estevão | Gabriel Chagas");
 	break;
 
 default:
