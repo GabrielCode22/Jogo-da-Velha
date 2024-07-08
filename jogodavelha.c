@@ -2,17 +2,21 @@
 #include <locale.h>
 #include <stdlib.h>
 
+char mtz[3][3];
+
 void espacar() {
-    for (int i = 0; i < 4; i++) {
+	int i;
+    for ( i = 0; i < 4; i++) {
         putchar('\t');
     }
 }
 
 void matriz() {
-		int i;
+		int i, j;
 	for (i = 0; i < 3; i++) {
-		putchar('\t');
-		printf("  |		|");
+		for (j = 0; j < 3; j++) {
+			printf("| %c |", mtz[i][j]);
+		}
 		printf("\n");
 	}
 }
@@ -25,7 +29,7 @@ void multijogador(){
 	
 	if (coiso == 1) {
 		system("cls");
-		printf("   X");
+		mtz[0][3] = 'X';
 		matriz();
 	}
 }
@@ -34,7 +38,7 @@ int main(){
 
 setlocale(LC_ALL, "Portuguese");
 
-int matriz[1][1][1] , jogador1 , jogador2;
+int jogador1 , jogador2;
 char op;
 
 espacar();
