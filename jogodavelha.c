@@ -25,7 +25,7 @@ void matriz() {
     int i, j;
     for (i = 0; i < 3; i++) {
         for (j = 0; j < 3; j++) {
-            printf("| %c |", mtz[i][j]);
+            printf("|- %c -|", mtz[i][j]);
         }
         printf("\n");
     }
@@ -96,7 +96,6 @@ void multijogador() {
 int main() {
     setlocale(LC_ALL, "Portuguese");
 
-    int jogador1, jogador2;
     char op;
 
     espacar();
