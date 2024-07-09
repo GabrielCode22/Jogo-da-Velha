@@ -93,6 +93,72 @@ void multijogador() {
     }
 }
 
+void jogar_contra_computador() {
+    int jogadas = 0;
+    int linha, coluna;
+    char jogador = 'X';
+    
+    inicializar_matriz();
+    
+    do {
+        system("cls");
+        matriz();
+        
+        if (jogador == 'X') {
+            // Jogador humano
+            printf("\nJogador %c, digite a linha e coluna para sua jogada (formato: linha coluna): ", jogador);
+            scanf("%d %d", &linha, &coluna);
+            
+            // Verifica se a posição é válida e está vazia
+            if (linha >= 1 && linha <= 3 && coluna >= 1 && coluna <= 3 && mtz[linha-1][coluna-1] == ' ') {
+                mtz[linha-1][coluna-1] = jogador;
+                jogadas++;
+                
+                // Verifica se o jogador atual venceu
+                if (verificar_vencedor(jogador)) {
+                    system("cls");
+                    matriz();
+                    printf("\n\nParabéns! Jogador %c venceu!\n", jogador);
+                    break;
+                }
+                
+                // Troca o jogador
+                jogador = 'O';
+            } else {
+                printf("\nJogada inválida! Tente novamente.\n");
+            }
+        } else {
+            // Computador
+            do {
+                linha = rand() % 3;
+                coluna = rand() % 3;
+            } while (mtz[linha][coluna] != ' '); // Continua tentando até encontrar uma posição vazia
+            
+            mtz[linha][coluna] = jogador;
+            jogadas++;
+            
+            // Verifica se o jogador atual venceu
+            if (verificar_vencedor(jogador)) {
+                system("cls");
+                matriz();
+                printf("\n\nO computador venceu!\n");
+                break;
+            }
+            
+            // Troca o jogador
+            jogador = 'X';
+        }
+        
+    } while (jogadas < 9); // O jogo acaba depois de 9 jogadas
+    
+    if (jogadas == 9) {
+        system("cls");
+        matriz();
+        printf("\n\nJogo empatado!\n");
+    }
+}
+
+
 int main() {
     setlocale(LC_ALL, "Portuguese");
 
@@ -109,7 +175,7 @@ int main() {
     espacar();
     printf("3 - Ver Créditos\n\n");
     espacar();
-    scanf(" %c", &op); // Corrigido para " %c" para ignorar espaços em branco
+    scanf(" %c", &op);
     
     switch (op) {
         case '1':
