@@ -8,17 +8,9 @@
 #else
 #endif
 
-time_t start_time, end_time;
-double elapsed_time;
-char mtz[3][3]; // Matriz do jogo da velha
-
-void inicializar_matriz();
-void mostrar_tempo();
-void espacar();
-void matriz();
-int verificar_vencedor(char jogador);
-void multijogador();
-void jogar_contra_computador();
+time_t start_time, end_time; //Aqui são variáveis que guardam o começo e o fim do timer
+double elapsed_time; //Aqui  o tempo DURANTE o jogo
+char mtz[3][3]; // Váriável Global para guardar os locais
 
 void inicializar_matriz() {
     int i, j;
@@ -30,13 +22,18 @@ void inicializar_matriz() {
     }
 }
 
+void mostrar_tempo() {
+    end_time = time(NULL);
+    elapsed_time = difftime(end_time, start_time);
+    printf("\nTempo total de jogo: %.2f segundos\n", elapsed_time);
+}
+
 void espacar() {
     int i;
     for (i = 0; i < 4; i++) {
         putchar('\t');
     }
 }
-
 void matriz() {
     int i, j;
     for (i = 0; i < 3; i++) {
@@ -60,17 +57,11 @@ int verificar_vencedor(char jogador) {
     
     // Olha as diagonais
     if (mtz[0][0] == jogador && mtz[1][1] == jogador && mtz[2][2] == jogador)
-        return 1;
+        return 2;
     if (mtz[0][2] == jogador && mtz[1][1] == jogador && mtz[2][0] == jogador)
-        return 1;
+        return 2;
     
     return 0;
-}
-
-void mostrar_tempo() {
-    end_time = time(NULL);
-    elapsed_time = difftime(end_time, start_time);
-    printf("\nTempo total de jogo: %.2f segundos\n", elapsed_time);
 }
 
 void multijogador() {
@@ -97,13 +88,19 @@ void multijogador() {
             mtz[linha-1][coluna-1] = jogador;
             jogadas++;
 
-            // Verifica se o jogador atual venceu
-            if (verificar_vencedor(jogador)) {
+            if (verificar_vencedor(jogador) == 1) {
+                system("cls");
                 matriz();
-                printf("\n\nParabéns! Jogador %c venceu!\n", jogador);
+                printf("\n\nParabéns! Jogador %c venceu!\n Por vencer normalente, sua pontuação nessa partida foi de 5 pontos", jogador);
+                 mostrar_tempo();
+                 return;
+            } else if (verificar_vencedor(jogador) == 2) {
+                system("cls");
+                matriz();
+                printf("\n\nParabéns! Jogador %c venceu!\n Por vencer com o uso das diagonais, sua pontuação nessa partida foi de 10 pontos", jogador);
                 mostrar_tempo();
                 return;
-            }
+                }
 
             // Troca o jogador
             jogador = (jogador == 'X') ? 'O' : 'X';
@@ -149,13 +146,19 @@ void jogar_contra_computador() {
                 jogadas++;
                 
                 // Verifica se o jogador atual venceu
-                if (verificar_vencedor(jogador)) {
+                if (verificar_vencedor(jogador) == 1) {
+                    system("cls");
                     matriz();
-                    printf("\n\nParabéns! Jogador %c venceu!\n", jogador);
+                    printf("\n\nParabéns! Jogador %c venceu!\n Por vencer normalente, sua pontuação nessa partida foi de 5 pontos", jogador);
+                    mostrar_tempo();
+                    return;
+                } else if (verificar_vencedor(jogador) == 2) {
+                    system("cls");
+                    matriz();
+                    printf("\n\nParabéns! Jogador %c venceu!\n Por vencer com o uso das diagonais, sua pontuação nessa partida foi de 10 pontos", jogador);
                     mostrar_tempo();
                     return;
                 }
-                
                 // Troca o jogador
                 jogador = 'O';
             } else {
