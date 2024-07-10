@@ -24,7 +24,7 @@ void inicializar_matriz() {
 
 void mostrar_tempo() {
     end_time = time(NULL);
-    elapsed_time = difftime(end_time, start_time);
+    elapsed_time = difftime(end_time, start_time); //Essa função basicamente faz com que o tempo de agora armazenado em endtime acima, seja colocado em diferença com o tempo de quando começou o jogo
     printf("\nTempo total de jogo: %.2f segundos\n", elapsed_time);
 }
 
