@@ -2,11 +2,47 @@
 #include <locale.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
+
+#define MAX_PLAYERS 100
+#define NAME_LENGTH 50
 
 #ifdef _WIN32
 #include <conio.h>
 #else
 #endif
+
+typedef struct {
+    char name[NAME_LENGTH];
+    int score;
+} Player;
+
+void addPlayer(Player players[], int *numPlayers, const char *name, int score) {
+    if (*numPlayers < MAX_PLAYERS) {
+        strncpy(players[*numPlayers].name, name, NAME_LENGTH - 1);
+        players[*numPlayers].name[NAME_LENGTH - 1] = '\0';  // Ensure null-termination
+        players[*numPlayers].score = score;
+        (*numPlayers)++;
+    } else {
+        printf("Limite máximo de jogadores atingido!\n");
+    }
+}
+
+int comparePlayers(const void *a, const void *b) {
+    Player *playerA = (Player *)a;
+    Player *playerB = (Player *)b;
+    return playerB->score - playerA->score;  // Ordem decrescente
+}
+
+void printRanking(const Player players[], int numPlayers) {
+	espacar();
+    printf("Ranking dos Jogadores:\n");
+    int i;
+    for (i = 0; i < numPlayers; i++) {
+    	espacar();
+        printf("%d. %s - %d Vitorias\n", i + 1, players[i].name, players[i].score);
+    }
+}
 
 time_t start_time, end_time; //Aqui são variáveis que guardam o começo e o fim do timer
 double elapsed_time; //Aqui  o tempo DURANTE o jogo
@@ -201,7 +237,11 @@ int main() {
     setlocale(LC_ALL, "Portuguese");
 
     char op;
-
+    Player players[MAX_PLAYERS];
+    int numPlayers = 0;
+    char name[NAME_LENGTH];
+    int score;
+    
     espacar();
     printf("Bem vindo ao Jogo da Velha!\n\n");
     espacar();
@@ -211,7 +251,7 @@ int main() {
     espacar();
     printf("2 - Jogar contra o computador\n\n");
     espacar();
-    printf("3 - Ver Créditos\n\n");
+    printf("3 - Ver Ranking\n\n");
     espacar();
     scanf(" %c", &op);
     
@@ -223,8 +263,19 @@ int main() {
             jogar_contra_computador();
             break;
         case '3':
+        	system("cls");
+        	espacar();
+        	printf("Antes de tudo, registre seu nome e quantas vitorias possui!\n");
+        	espacar();
+            printf("Nome do jogador: ");
+            scanf("%s", name);
             espacar();
-            printf(" Luiz Fernando | Joshuan Estevão | Gabriel Chagas\n");
+            printf("Pontuacao do jogador: ");
+            scanf("%d", &score);
+            addPlayer(players, &numPlayers, name, score);
+            system("cls");
+            qsort(players, numPlayers, sizeof(Player), comparePlayers);
+            printRanking(players, numPlayers);
             break;
         default:
             printf("Opção inválida.\n");
