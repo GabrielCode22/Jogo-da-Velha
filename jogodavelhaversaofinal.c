@@ -78,8 +78,12 @@ void multijogador() {
     char jogador = 'X';
     inicializar_matriz();
     start_time = time(NULL);
+    
+    Music teste = LoadMusicStream("C:/Users/joshu/Downloads/Undertale OST_ 004 - Fallen Down.mp3");
+    PlayMusicStream(teste);
 
     while (jogadas < 9 && !partidaTerminada) {
+        UpdateMusicStream(teste);
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
             int mouseX = GetMouseX();
             int mouseY = GetMouseY();
@@ -136,8 +140,12 @@ void jogar_contra_computador() {
     char jogador = 'X';
     inicializar_matriz();
     start_time = time(NULL);
+    
+    Music teste = LoadMusicStream("C:/Users/joshu/Downloads/Undertale OST_ 004 - Fallen Down.mp3");
+    PlayMusicStream(teste);
 
     while (jogadas < 9 && !partidaTerminada) {
+            UpdateMusicStream(teste);
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
             int mouseX = GetMouseX();
             int mouseY = GetMouseY();
@@ -218,10 +226,15 @@ void pedir_nomes(int modo) {
 
 int main() {
     InitWindow(screenWidth, screenHeight, "Jogo da Velha com Raylib");
+    InitAudioDevice();
+    Music teste = LoadMusicStream("C:/Users/joshu/Downloads/Undertale OST_ 004 - Fallen Down.mp3");
+    PlayMusicStream(teste);
 
     GameScreen currentScreen = MENU;
 
-    while (!WindowShouldClose()) {
+    while (!WindowShouldClose()) {  
+    UpdateMusicStream(teste);
+        
         if (currentScreen == MENU) {
             BeginDrawing();
             ClearBackground(RAYWHITE);
